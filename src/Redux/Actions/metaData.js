@@ -1,4 +1,4 @@
-import {REQUEST_CATEGORIES, REQ_TITLE} from './actionTypes';
+import {REQUEST_CATEGORIES} from './actionTypes';
 
 export function requestCat() {
   return {

@@ -1,15 +1,8 @@
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {bestStyle} from './style';
 
-const IconCard = ({data, deal, stores}) => {
+const IconCard = ({data, stores, deal}) => {
   const renderBestDeal = ({item}) => {
     return (
       <View style={bestStyle.dealContainer}>

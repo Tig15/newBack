@@ -1,4 +1,4 @@
-import {GET_TITLE, RETRIEVE_CATEGORIES} from '../Actions/actionTypes';
+import {RETRIEVE_CATEGORIES} from '../Actions/actionTypes';
 
 const intState = [];
 

@@ -31,13 +31,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {requestCat} from '../../Redux/Actions/metaData';
 
 const Home = ({navigation}) => {
-  // const dispatch = useDispatch();
-  // const reqCat = useSelector(store => store.catReducer);
+  const dispatch = useDispatch();
+  const reqCat = useSelector(store => store.catReducer);
 
-  // useEffect(() => {
-  //   dispatch(requestCat());
-  //   console.log(reqCat);
-  // }, [reqCat]);
+  useEffect(() => {
+    dispatch(requestCat());
+  }, [dispatch]);
 
   const {t} = useTranslation();
   return (
