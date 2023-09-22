@@ -25,18 +25,15 @@ const StoreCard = ({data}) => {
           )}
         </TouchableOpacity>
         <View style={cardStyle.innerContainer}>
-          <Image
-            source={{uri: item.item.couponIcon}}
-            style={cardStyle.coupIcon}
-          />
+          <Image source={{uri: item.item.logo}} style={cardStyle.coupIcon} />
         </View>
-        <Text style={cardStyle.coupName}>{item.item.couponName}</Text>
+        <Text style={cardStyle.coupName}>{item.item.name}</Text>
         <View style={cardStyle.smallContainers}>
           <Image
             source={{uri: item.item.safeSign}}
             style={cardStyle.safeSign}
           />
-          <Text style={cardStyle.cashBack}>{item.item.cashback}</Text>
+          <Text style={cardStyle.cashBack}>{item.item.cashback_string}</Text>
         </View>
       </View>
     );
@@ -44,7 +41,7 @@ const StoreCard = ({data}) => {
 
   return (
     <FlatList
-      data={data}
+      data={data[0]}
       renderItem={renderFeaturedData}
       keyExtractor={(item, index) => item.id}
       horizontal={true}

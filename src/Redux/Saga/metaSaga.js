@@ -2,14 +2,27 @@ import {put, takeEvery} from 'redux-saga/effects';
 import {REQUEST_CATEGORIES, RETRIEVE_CATEGORIES} from '../Actions/actionTypes';
 
 function* reqCat() {
-  let data = yield fetch('https://lbp8api.enactweb.com/public/apphome');
-  data = yield data.json();
+  try {
+    const response = yield fetch('https://api.bionapp.com/public/apphome');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
-  console.log('Data', data);
-  yield put({
-    type: RETRIEVE_CATEGORIES,
-    data: data.data[25]['procash/categories']['categories'],
-  });
+    const data = yield response.json();
+
+    console.log('Data', data);
+
+    if (data.data) {
+      yield put({
+        type: RETRIEVE_CATEGORIES,
+        data: data.data,
+      });
+    } else {
+      console.error('Invalid data format:', data);
+    }
+  } catch (error) {
+    console.log('Error fetching or parsing data:', error);
+  }
 }
 
 function* metaSaga() {
