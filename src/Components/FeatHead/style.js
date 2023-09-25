@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {COLORS} from '../../Assets/Theme/colors';
 
 export const headStyle = StyleSheet.create({
   firstContainer: {
@@ -8,6 +9,20 @@ export const headStyle = StyleSheet.create({
   },
   flatContent: {
     marginTop: 5,
-    marginLeft: 5,
+    marginLeft: 8,
+  },
+  active: {
+    fontSize: 10,
+    marginTop: 5,
+    color: COLORS.secondary,
+    fontWeight: 'bold',
+    borderBottomWidth: 2,
+    borderBottomColor: COLORS.secondary,
+  },
+  inactive: {
+    fontSize: 10,
+    marginTop: 5,
+    color: COLORS.tertiary,
+    fontWeight: 'bold',
   },
 });

@@ -1,11 +1,11 @@
-import {View, Text, FlatList, Image} from 'react-native';
+import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {dealStyle} from './style';
 
 const DealCard = ({data}) => {
   const renderDealData = ({item}) => {
     return (
-      <View style={dealStyle.dealContainer}>
+      <TouchableOpacity style={dealStyle.dealContainer}>
         <View style={dealStyle.backImage}>
           <Image style={dealStyle.productImage} source={{uri: item.image}} />
         </View>
@@ -13,23 +13,24 @@ const DealCard = ({data}) => {
           <Text style={dealStyle.title}>{item.title}</Text>
           <Text style={dealStyle.desc}>{item.desc}</Text>
           <View style={dealStyle.rate}>
-            <Text style={dealStyle.oldRate}>{item.oldRate}</Text>
-            <Text style={dealStyle.newRate}>{item.newRate}</Text>
+            <Text style={dealStyle.oldRate}>{item.retail_price}</Text>
+            <Text style={dealStyle.newRate}>{item.offer_price}</Text>
           </View>
         </View>
         <View style={dealStyle.toTheTop}>
-          <Text style={dealStyle.cashie}>{item.cashback}</Text>
+          <Text style={dealStyle.cashie}>{item.cashback_string}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (
     <View>
       <FlatList
-        data={data}
+        data={data[0]}
         renderItem={renderDealData}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
+        keyExtractor={(item, index) => item.id}
       />
     </View>
   );

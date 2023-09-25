@@ -1,14 +1,18 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
-import StyledText from '../Core/StyledText';
-import {featuredHead, offerHead} from '../../Assets/Data/headData';
 import {headStyle} from './style';
+import StyledText from '../Core/StyledText';
 
-const FeatHead = ({data, title}) => {
+const FeatHead = ({data, title, onItemClick, selected}) => {
   const renderHeaders = ({item}) => {
+    const handleItem = () => {
+      onItemClick(item);
+    };
     return (
-      <TouchableOpacity>
-        <StyledText small> {item.title} </StyledText>
+      <TouchableOpacity style={{marginLeft: 8}} onPress={handleItem}>
+        <Text style={selected ? headStyle.active : headStyle.inactive}>
+          {item.name}
+        </Text>
       </TouchableOpacity>
     );
   };
@@ -20,9 +24,10 @@ const FeatHead = ({data, title}) => {
         <FlatList
           data={data}
           renderItem={renderHeaders}
-          numColumns={3}
-          columnWrapperStyle={{gap: 5}}
           keyExtractor={(item, index) => item.id}
+          horizontal={true}
+          style={{width: 140, marginLeft: 10}}
+          showsHorizontalScrollIndicator={false}
         />
       </View>
     </View>

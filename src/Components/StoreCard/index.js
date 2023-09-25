@@ -13,11 +13,8 @@ const StoreCard = ({data}) => {
 
   const renderFeaturedData = item => {
     return (
-      <View style={cardStyle.cardContainer}>
-        <TouchableOpacity
-          style={cardStyle.favContent}
-          onPress={handleFave}
-          onPr>
+      <TouchableOpacity style={cardStyle.cardContainer}>
+        <TouchableOpacity style={cardStyle.favContent} onPress={handleFave}>
           {selectFave ? (
             <Entypo name="heart" size={22} />
           ) : (
@@ -29,13 +26,10 @@ const StoreCard = ({data}) => {
         </View>
         <Text style={cardStyle.coupName}>{item.item.name}</Text>
         <View style={cardStyle.smallContainers}>
-          <Image
-            source={{uri: item.item.safeSign}}
-            style={cardStyle.safeSign}
-          />
+          <View style={cardStyle.safeSign} />
           <Text style={cardStyle.cashBack}>{item.item.cashback_string}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 

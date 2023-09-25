@@ -1,16 +1,21 @@
 import {Dimensions, FlatList, Image, Text, View} from 'react-native';
 import React, {useState} from 'react';
-import {image} from '../../Assets/Image/data';
 import {sliderStyles} from './style';
 
 const screenWidth = Dimensions.get('screen').width;
 
-const Slider = () => {
+const Slider = ({data}) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const imageData = image;
+
+  const slideData = [];
+
+  for (key in data) {
+    const sliderData = data[key];
+    slideData.push(sliderData);
+  }
 
   const renderDotIndicators = () => {
-    return imageData.map((dot, index) => {
+    return slideData.map((dot, index) => {
       if (activeIndex === index) {
         return <View key={index} style={sliderStyles.activeDot}></View>;
       } else {
@@ -20,9 +25,10 @@ const Slider = () => {
   };
 
   const renderImage = ({item}) => {
+    const url = item.image_url.en;
     return (
       <View style={sliderStyles.swiper}>
-        <Image style={sliderStyles.imageSwipe} source={{uri: item.url}} />
+        <Image style={sliderStyles.imageSwipe} source={{uri: url}} />
       </View>
     );
   };
@@ -37,11 +43,11 @@ const Slider = () => {
   return (
     <View style={sliderStyles.mainContainer}>
       <FlatList
-        data={imageData}
+        data={slideData}
         renderItem={renderImage}
         keyExtractor={(item, index) => item.id}
         horizontal={true}
-        pagingEnabled={true}
+        showsHorizontalScrollIndicator={false}
         onScroll={handleScroll}
       />
 

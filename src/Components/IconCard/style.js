@@ -13,21 +13,13 @@ export const bestStyle = StyleSheet.create({
     marginBottom: 15,
   },
   iconContainer: {
-    backgroundColor: COLORS.primary,
     width: 60,
     height: 60,
     borderRadius: 20,
     paddingHorizontal: 9,
     paddingVertical: 11,
   },
-  iconsContainer: {
-    backgroundColor: COLORS.secondary,
-    width: 60,
-    height: 60,
-    borderRadius: 20,
-    paddingHorizontal: 9,
-    paddingVertical: 11,
-  },
+
   icons: {
     width: 40,
     height: 40,

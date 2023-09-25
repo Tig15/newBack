@@ -43,9 +43,11 @@ export const offerStyle = StyleSheet.create({
     fontFamily: 'Merriweather-Regular',
   },
   backText: {
-    fontSize: 9.5,
-    fontFamily: 'BricolageGrotesque-Regular',
-    color: COLORS.tint,
+    fontSize: 9,
+    fontWeight: 'bold',
+    color: COLORS.lightDark,
+    width: 100,
+    marginLeft: 15,
   },
   toNext: {
     backgroundColor: COLORS.dark,

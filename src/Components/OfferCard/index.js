@@ -7,29 +7,30 @@ import {COLORS} from '../../Assets/Theme/colors';
 const OfferCard = ({data}) => {
   const renderTopItems = ({item}) => {
     return (
-      <View style={offerStyle.topContainer}>
+      <TouchableOpacity style={offerStyle.topContainer}>
         <View style={offerStyle.emptyContent}>
           <Text></Text>
         </View>
-        <Text style={offerStyle.moveDesc}>{item.desc}</Text>
+        <Text style={offerStyle.moveDesc}>{item.title}</Text>
         <View style={offerStyle.topContent}>
-          <Image style={offerStyle.safe} source={{uri: item.safeSign}} />
-          <Text style={offerStyle.backText}>{item.cashback}</Text>
+          {/* <Image style={offerStyle.safe} source={{uri: item.safeSign}} /> */}
+          <Text style={offerStyle.backText}>{item.store.cashback_string}</Text>
         </View>
         <TouchableOpacity style={offerStyle.toNext}>
           <Entypo name="chevron-thin-right" color={COLORS.light} size={12.5} />
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     );
   };
 
   return (
-    <View styl={offerStyle.mainContainer}>
+    <View style={offerStyle.mainContainer}>
       <FlatList
-        data={data}
+        data={data[0]}
         renderItem={renderTopItems}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
+        keyExtractor={(item, index) => item.id}
       />
     </View>
   );

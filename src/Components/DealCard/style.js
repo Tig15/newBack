@@ -34,7 +34,7 @@ export const dealStyle = StyleSheet.create({
   title: {
     color: COLORS.dark,
     fontFamily: 'CrimsonText-SemiBold',
-    fontSize: 13,
+    fontSize: 10,
     textAlign: 'center',
   },
   desc: {
