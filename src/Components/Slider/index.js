@@ -7,37 +7,38 @@ const screenWidth = Dimensions.get('screen').width;
 const Slider = ({data}) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const slideData = [];
-
-  for (key in data) {
-    const sliderData = data[key];
-    slideData.push(sliderData);
-  }
+  const slideData = Object.values(data);
 
   const renderDotIndicators = () => {
-    return slideData.map((dot, index) => {
-      if (activeIndex === index) {
-        return <View key={index} style={sliderStyles.activeDot}></View>;
-      } else {
-        return <View key={index} style={sliderStyles.inactiveDot}></View>;
-      }
-    });
+    return slideData.map((dot, index) => (
+      <View
+        key={index}
+        style={
+          index === activeIndex
+            ? sliderStyles.activeDot
+            : sliderStyles.inactiveDot
+        }></View>
+    ));
   };
 
   const renderImage = ({item}) => {
-    console.log('Your Slide Item', item);
     const url = item.image_url.en;
     return (
       <View style={sliderStyles.swiper}>
-        <Image style={sliderStyles.imageSwipe} source={{uri: url}} />
+        <Image
+          style={sliderStyles.imageSwipe}
+          source={{uri: url}}
+          onError={() => {
+            // Handle image load errors here
+          }}
+        />
       </View>
     );
   };
 
   const handleScroll = event => {
     const scrollPosition = event.nativeEvent.contentOffset.x;
-
-    const index = scrollPosition / screenWidth;
+    const index = Math.floor(scrollPosition / screenWidth);
     setActiveIndex(index);
   };
 
@@ -46,7 +47,6 @@ const Slider = ({data}) => {
       <FlatList
         data={slideData}
         renderItem={renderImage}
-        keyExtractor={(item, index) => item.id}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         onScroll={handleScroll}

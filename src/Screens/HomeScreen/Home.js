@@ -42,6 +42,8 @@ const Home = ({navigation}) => {
   const loadedData = reqCatData.data;
   console.log('Loaded Data', loadedData);
 
+  const loading = reqCatData.loading;
+
   const processedData = [];
 
   for (const key in loadedData) {
@@ -59,25 +61,11 @@ const Home = ({navigation}) => {
 
   const featuredStoresData = processedData[2];
 
-  console.log('Featured Stores', featuredStoresData);
-
-  const defaultFeatured = featuredStoresData.categories.map(
-    storeData => storeData.stores[0],
-  );
-
   // const popularStoresData = processedData[3];
 
   const topOffersData = processedData[5];
 
-  const defaultOffers = topOffersData.categories.map(
-    offerData => offerData.coupons[0],
-  );
-
   const topDealsData = processedData[6];
-
-  const defaultDeals = topDealsData.categories.map(
-    dealData => dealData.deals[0],
-  );
 
   const bestDealData = processedData[11];
 
@@ -157,16 +145,14 @@ const Home = ({navigation}) => {
           setSelected={setSelectedId}
           onCategoryClick={handleCategoryClick}
         />
-        <StoreCard
-          data={selectedCategory ? selectedCategory.stores : defaultFeatured}
-        />
+        <StoreCard data={selectedCategory ? selectedCategory.stores : []} />
         {/* <FeatHead
           data={popularStoresData.categories}
           title={popularStoresData.title}
         />
         <StoreCard
           data={popularStoresData.categories.map(storeData => storeData.stores)}
-        />  */}
+        /> */}
       </View>
       <View style={homeStyle.thirdContainer}>
         <OffHead
@@ -188,7 +174,7 @@ const Home = ({navigation}) => {
           setSelected={setSelectedDealId}
           onDealCatClick={handleDealCatClick}
         />
-        <DealCard data={selectedDeal ? selectedDeal.deals : defaultDeals} />
+        <DealCard data={selectedDeal ? selectedDeal.deals : []} />
       </View>
       <View style={homeStyle.fifthContainer}>
         <Iconheader>{bestDealData.title.en}</Iconheader>

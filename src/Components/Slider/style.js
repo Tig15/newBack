@@ -1,14 +1,14 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {COLORS} from '../../Assets/Theme/colors';
 
-const screenWidth = Dimensions.get('screen').width - 23;
+const screenWidth = Dimensions.get('window').width;
 
 export const sliderStyles = StyleSheet.create({
   mainContainer: {
-    width: '94%',
+    width: '90%',
   },
   swiper: {
-    marginTop: 10,
+    marginTop: 12,
   },
   imageSwipe: {
     width: screenWidth,

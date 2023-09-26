@@ -30,7 +30,7 @@ const DealCard = ({data}) => {
         renderItem={renderDealData}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        keyExtractor={(item, index) => item.id}
+        keyExtractor={(item, index) => item.visits}
       />
     </View>
   );
