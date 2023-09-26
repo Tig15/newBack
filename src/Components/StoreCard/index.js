@@ -35,7 +35,7 @@ const StoreCard = ({data}) => {
 
   return (
     <FlatList
-      data={data[0]}
+      data={data}
       renderItem={renderFeaturedData}
       keyExtractor={(item, index) => item.id}
       horizontal={true}

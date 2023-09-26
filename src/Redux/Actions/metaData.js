@@ -1,7 +1,7 @@
-import {REQUEST_CATEGORIES} from './actionTypes';
+import {LOAD_CAT_LOADING} from './actionTypes';
 
 export function requestCat() {
   return {
-    type: REQUEST_CATEGORIES,
+    type: LOAD_CAT_LOADING,
   };
 }

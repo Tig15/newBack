@@ -2,6 +2,9 @@ import {StyleSheet} from 'react-native';
 import {COLORS} from '../../Assets/Theme/colors';
 
 export const offerStyle = StyleSheet.create({
+  mainContainer: {
+    marginBottom: 10,
+  },
   topContainer: {
     width: 270,
     height: 130,
@@ -15,13 +18,15 @@ export const offerStyle = StyleSheet.create({
     height: 20,
     width: 20,
     backgroundColor: COLORS.tertiary,
-    borderRadius: 8,
-    marginTop: 4,
+    borderRadius: 20,
+    marginTop: -5,
+    marginLeft: 20,
+    opacity: 0.8,
   },
   emptyContent: {
     backgroundColor: COLORS.primary,
     width: 120,
-    height: 45,
+    height: 40,
     borderRadius: 10,
     top: 7,
     left: 8,
@@ -44,10 +49,11 @@ export const offerStyle = StyleSheet.create({
   },
   backText: {
     fontSize: 9,
-    fontWeight: 'bold',
+    opacity: 0.6,
     color: COLORS.lightDark,
-    width: 100,
-    marginLeft: 15,
+    width: 60,
+    marginLeft: 6,
+    marginTop: -7,
   },
   toNext: {
     backgroundColor: COLORS.dark,

@@ -8,8 +8,8 @@ export const headStyle = StyleSheet.create({
     justifyContent: 'space-between',
   },
   flatContent: {
-    marginTop: 5,
-    marginLeft: 8,
+    marginTop: 3,
+    marginLeft: 4,
   },
   active: {
     fontSize: 10,
@@ -22,7 +22,7 @@ export const headStyle = StyleSheet.create({
   inactive: {
     fontSize: 10,
     marginTop: 5,
-    color: COLORS.tertiary,
+    color: COLORS.uno,
     fontWeight: 'bold',
   },
 });

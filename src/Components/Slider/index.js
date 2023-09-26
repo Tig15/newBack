@@ -25,6 +25,7 @@ const Slider = ({data}) => {
   };
 
   const renderImage = ({item}) => {
+    console.log('Your Slide Item', item);
     const url = item.image_url.en;
     return (
       <View style={sliderStyles.swiper}>

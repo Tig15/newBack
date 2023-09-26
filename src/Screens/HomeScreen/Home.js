@@ -16,11 +16,18 @@ import Footer from '../../Components/Footer';
 import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import {requestCat} from '../../Redux/Actions/metaData';
+import OffHead from '../../Components/OffHead';
+import DealHead from '../../Components/DealHead';
 import LoadingSpinner from '../../Components/Spinner';
 
 const Home = ({navigation}) => {
-  // const [isLoading, setIsLoading] = useState(true);
-  const [selected, setSelected] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [selectedOffId, setSelectedOffId] = useState(null);
+  const [selectedDealId, setSelectedDealId] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedOffers, setSelectedOffers] = useState(null);
+  const [selectedDeal, setSelectedDeal] = useState(null);
+
   const dispatch = useDispatch();
   const reqCatData = useSelector(store => store.catReducer);
 
@@ -32,11 +39,14 @@ const Home = ({navigation}) => {
     console.log(reqCatData);
   }, [reqCatData]);
 
+  const loadedData = reqCatData.data;
+  console.log('Loaded Data', loadedData);
+
   const processedData = [];
 
-  for (const key in reqCatData) {
+  for (const key in loadedData) {
     if (key !== 'content') {
-      const data = reqCatData[key];
+      const data = loadedData[key];
       for (const procashKey in data) {
         const procashData = data[procashKey];
         processedData.push(procashData);
@@ -44,76 +54,90 @@ const Home = ({navigation}) => {
     }
   }
 
-  function extractData(data, key) {
-    for (const categoryKey in data) {
-      if (categoryKey === key) {
-        const categoryData = data[categoryKey];
-        return {
-          title: categoryData.title.en,
-          categories: categoryData.categories,
-        };
-      }
-    }
-    return null; // Return null if the key is not found
-  }
-
-  // const featuredStores = processedData[2]['procash/featured-stores'];
-  // const featTitle = featuredStores.title.en;
-  // const featCat = featuredStores.categories;
-  // const featStores = featCat.map(storeData => storeData.stores);
-
-  // const popularStores = processedData[3]['procash/top-stores'];
-  // const popTitle = popularStores.title.en;
-  // const popCat = popularStores.categories;
-  // const popStores = popCat.map(storeData => storeData.stores);
-
-  // const topOffers = processedData[5]['procash/top-offers'];
-  // const offerTitle = topOffers.title.en;
-  // const offerCat = topOffers.categories;
-  // const offerCoup = offerCat.map(couponData => couponData.coupons);
-
-  // const topDeals = processedData[6]['procash/top-deals'];
-  // const topTitle = topDeals.title.en;
-  // const topCat = topDeals.categories;
-  // const topDeal = topCat.map(dealData => dealData.deals);
-
-  // const bestDeal = processedData[11]['procash/categories'];
-  // const bestCat = bestDeal.categories;
-  // const bestHead = bestDeal.title.en;
-
-  // const popDeal = processedData[12]['procash/categories'];
-  // const popDealCat = popDeal.categories;
-  // const popHead = popDeal.title.en;
-
-  const sliderData = processedData[1]['procash/slider'];
+  const sliderData = processedData[1];
   const slides = sliderData.slides;
 
-  const featuredStoresData = extractData(
-    processedData[2],
-    'procash/featured-stores',
+  const featuredStoresData = processedData[2];
+
+  console.log('Featured Stores', featuredStoresData);
+
+  const defaultFeatured = featuredStoresData.categories.map(
+    storeData => storeData.stores[0],
   );
 
+  // const popularStoresData = processedData[3];
+
+  const topOffersData = processedData[5];
+
+  const defaultOffers = topOffersData.categories.map(
+    offerData => offerData.coupons[0],
+  );
+
+  const topDealsData = processedData[6];
+
+  const defaultDeals = topDealsData.categories.map(
+    dealData => dealData.deals[0],
+  );
+
+  const bestDealData = processedData[11];
+
+  const popDealData = processedData[12];
+
+  const coupDealData = processedData[13];
+
+  // Featured Stores
   const handleStoreClick = store => {
     if (
       store.name === 'Handpicked' ||
       store.name === "Women's" ||
       store.name === 'Online Games'
     ) {
-      setSelected(true); // Update selectedId based on the clicked store's ID
+      setSelectedId(store.id);
     } else {
-      setSelected(false); // Clear selectedId if none of the specified conditions match
+      setSelectedId(null);
     }
   };
 
-  const popularStoresData = extractData(processedData[3], 'procash/top-stores');
+  const handleCategoryClick = category => {
+    setSelectedCategory(category);
+  };
 
-  const topOffersData = extractData(processedData[5], 'procash/top-offers');
+  // Top Offers
+  const handleOfferClick = offer => {
+    if (
+      offer.name === 'Latest' ||
+      offer.name === 'Health & Beauty' ||
+      offer.name === 'Fashion' ||
+      offer.name === 'Laptops'
+    ) {
+      setSelectedOffId(offer.id);
+    } else {
+      setSelectedOffId(null);
+    }
+  };
 
-  const topDealsData = extractData(processedData[6], 'procash/top-deals');
+  const handleOfferCatClick = offer => {
+    setSelectedOffers(offer);
+  };
 
-  const bestDealData = extractData(processedData[11], 'procash/categories');
+  // Top Deals
 
-  const popDealData = extractData(processedData[12], 'procash/categories');
+  const handleDealClick = deal => {
+    if (
+      deal.name === 'Featured' ||
+      deal.name === 'Electornics' ||
+      deal.name === 'Fashion' ||
+      deal.name === 'Others'
+    ) {
+      setSelectedDealId(deal.id);
+    } else {
+      setSelectedDealId(null);
+    }
+  };
+
+  const handleDealCatClick = deal => {
+    setSelectedDeal(deal);
+  };
 
   const {t} = useTranslation();
   return (
@@ -127,41 +151,52 @@ const Home = ({navigation}) => {
       <View style={homeStyle.secondContainer}>
         <FeatHead
           data={featuredStoresData.categories}
-          title={featuredStoresData.title}
+          title={featuredStoresData.title.en}
           onItemClick={handleStoreClick}
-          selected={selected}
-          setSelected={setSelected}
+          selected={selectedId}
+          setSelected={setSelectedId}
+          onCategoryClick={handleCategoryClick}
         />
         <StoreCard
-          data={featuredStoresData.categories.map(
-            storeData => storeData.stores,
-          )}
+          data={selectedCategory ? selectedCategory.stores : defaultFeatured}
         />
-        <FeatHead
+        {/* <FeatHead
           data={popularStoresData.categories}
           title={popularStoresData.title}
         />
         <StoreCard
           data={popularStoresData.categories.map(storeData => storeData.stores)}
-        />
+        />  */}
       </View>
       <View style={homeStyle.thirdContainer}>
-        <FeatHead data={topOffersData.categories} title={topOffersData.title} />
-        <OfferCard
-          data={topOffersData.categories.map(couponData => couponData.coupons)}
+        <OffHead
+          data={topOffersData.categories}
+          title={topOffersData.title.en}
+          onItemClick={handleOfferClick}
+          selected={selectedOffId}
+          setSelected={setSelectedOffId}
+          onOfferCatClick={handleOfferCatClick}
         />
+        <OfferCard data={selectedOffers ? selectedOffers.coupons : []} />
       </View>
       <View style={homeStyle.fourthContainer}>
-        <FeatHead data={topDealsData.categories} title={topDealsData.title} />
-        <DealCard
-          data={topDealsData.categories.map(dealData => dealData.deals)}
+        <DealHead
+          data={topDealsData.categories}
+          title={topDealsData.title.en}
+          onItemClick={handleDealClick}
+          selected={selectedDealId}
+          setSelected={setSelectedDealId}
+          onDealCatClick={handleDealCatClick}
         />
+        <DealCard data={selectedDeal ? selectedDeal.deals : defaultDeals} />
       </View>
       <View style={homeStyle.fifthContainer}>
-        <Iconheader>{bestDealData.title}</Iconheader>
+        <Iconheader>{bestDealData.title.en}</Iconheader>
         <IconCard data={bestDealData.categories} />
-        <Iconheader>{popDealData.title}</Iconheader>
+        <Iconheader>{popDealData.title.en}</Iconheader>
         <IconCard data={popDealData.categories} />
+        <Iconheader>{coupDealData.title.en}</Iconheader>
+        <IconCard data={coupDealData.categories} />
       </View>
       <Footer />
     </ScrollView>

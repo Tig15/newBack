@@ -13,7 +13,7 @@ const OfferCard = ({data}) => {
         </View>
         <Text style={offerStyle.moveDesc}>{item.title}</Text>
         <View style={offerStyle.topContent}>
-          {/* <Image style={offerStyle.safe} source={{uri: item.safeSign}} /> */}
+          <View style={offerStyle.safe} />
           <Text style={offerStyle.backText}>{item.store.cashback_string}</Text>
         </View>
         <TouchableOpacity style={offerStyle.toNext}>
@@ -26,7 +26,7 @@ const OfferCard = ({data}) => {
   return (
     <View style={offerStyle.mainContainer}>
       <FlatList
-        data={data[0]}
+        data={data}
         renderItem={renderTopItems}
         horizontal={true}
         showsHorizontalScrollIndicator={false}

@@ -1,5 +1,9 @@
 import {put, takeEvery} from 'redux-saga/effects';
-import {REQUEST_CATEGORIES, RETRIEVE_CATEGORIES} from '../Actions/actionTypes';
+import {
+  LOAD_CAT_ERROR,
+  LOAD_CAT_LOADING,
+  LOAD_CAT_SUCCESS,
+} from '../Actions/actionTypes';
 
 function* reqCat() {
   try {
@@ -12,21 +16,20 @@ function* reqCat() {
 
     console.log('Data', data);
 
-    if (data.data) {
-      yield put({
-        type: RETRIEVE_CATEGORIES,
-        data: data.data,
-      });
-    } else {
-      console.error('Invalid data format:', data);
-    }
+    yield put({
+      type: LOAD_CAT_SUCCESS,
+      data: data.data,
+    });
   } catch (error) {
-    console.log('Error fetching or parsing data:', error);
+    yield put({
+      type: LOAD_CAT_ERROR,
+      error: error.message,
+    });
   }
 }
 
 function* metaSaga() {
-  yield takeEvery(REQUEST_CATEGORIES, reqCat);
+  yield takeEvery(LOAD_CAT_LOADING, reqCat);
 }
 
 export default metaSaga;

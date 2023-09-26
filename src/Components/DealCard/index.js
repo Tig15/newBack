@@ -26,7 +26,7 @@ const DealCard = ({data}) => {
   return (
     <View>
       <FlatList
-        data={data[0]}
+        data={data}
         renderItem={renderDealData}
         horizontal={true}
         showsHorizontalScrollIndicator={false}

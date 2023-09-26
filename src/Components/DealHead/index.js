@@ -1,14 +1,14 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
-import {headStyle} from '../HeadStyle/style';
 import StyledText from '../Core/StyledText';
+import {headStyle} from '../HeadStyle/style';
 
-const FeatHead = ({data, title, onItemClick, selected, onCategoryClick}) => {
+const DealHead = ({data, title, onItemClick, selected, onDealCatClick}) => {
   const renderHeaders = ({item}) => {
     const handleItem = () => {
       onItemClick(item);
       // setSelected(item.id);
-      onCategoryClick(item);
+      onDealCatClick(item);
     };
     return (
       <TouchableOpacity style={{marginLeft: 8}} onPress={handleItem}>
@@ -37,4 +37,4 @@ const FeatHead = ({data, title, onItemClick, selected, onCategoryClick}) => {
   );
 };
 
-export default FeatHead;
+export default DealHead;

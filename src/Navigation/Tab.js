@@ -30,7 +30,7 @@ const Tab = () => {
           },
 
           tabBarActiveTintColor: COLORS.primary,
-          tabBarInactiveTintColor: COLORS.mono,
+          tabBarInactiveTintColor: COLORS.light,
           tabBarStyle: {
             backgroundColor: COLORS.lightDark,
             position: 'absolute',
