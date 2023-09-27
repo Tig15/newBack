@@ -35,7 +35,7 @@ const StoreCard = ({data}) => {
 
   return (
     <FlatList
-      data={data}
+      data={data[0]} // {data[0]} is made for bionapp API, for Laraback it has to be {data}
       renderItem={renderFeaturedData}
       keyExtractor={(item, index) => item.id}
       horizontal={true}

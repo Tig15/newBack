@@ -2,7 +2,7 @@ import {Dimensions, FlatList, Image, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {sliderStyles} from './style';
 
-const screenWidth = Dimensions.get('screen').width;
+const screenWidth = Dimensions.get('screen').width - 19;
 
 const Slider = ({data}) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -43,7 +43,7 @@ const Slider = ({data}) => {
   };
 
   return (
-    <View style={sliderStyles.mainContainer}>
+    <View style={{width: '95%'}}>
       <FlatList
         data={slideData}
         renderItem={renderImage}

@@ -7,7 +7,8 @@ import {
 
 function* reqCat() {
   try {
-    const response = yield fetch('https://lbp8api.enactweb.com/public/apphome');
+    // const response = yield fetch('https://lbp8api.enactweb.com/public/apphome');
+    const response = yield fetch('https://api.bionapp.com/public/apphome');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
