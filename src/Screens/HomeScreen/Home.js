@@ -29,13 +29,11 @@ const Home = ({navigation}) => {
   const [selectedDeal, setSelectedDeal] = useState(null);
 
   const dispatch = useDispatch();
-  const reqCatData = useSelector(store => store.catReducer);
-
-  const {data, loading, errors} = reqCatData;
+  const {data, loading, errors} = useSelector(store => store.catReducer);
 
   useEffect(() => {
     dispatch(requestCat());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (!loading && data) {
@@ -59,22 +57,22 @@ const Home = ({navigation}) => {
 
   console.log('Processed Data', processedData);
 
-  const sliderData = processedData[1];
+  const sliderData = processedData.length < 0 ? [] : processedData[1];
   const slides = sliderData.slides;
 
-  const featuredStoresData = processedData[2];
+  const featuredStoresData = processedData.length < 0 ? [] : processedData[2];
 
   // const popularStoresData = processedData[3];
 
-  const topOffersData = processedData[5];
+  const topOffersData = processedData.length < 0 ? [] : processedData[5];
 
-  const topDealsData = processedData[6];
+  const topDealsData = processedData.length < 0 ? [] : processedData[6];
 
-  const bestDealData = processedData[11];
+  const bestDealData = processedData.length < 0 ? [] : processedData[11];
 
-  const popDealData = processedData[12];
+  const popDealData = processedData.length < 0 ? [] : processedData[12];
 
-  const coupDealData = processedData[13];
+  const coupDealData = processedData.length < 0 ? [] : processedData[13];
 
   // Featured Stores
   const handleStoreClick = store => {
@@ -145,7 +143,7 @@ const Home = ({navigation}) => {
       <View style={homeStyle.secondContainer}>
         <FeatHead
           data={featuredStoresData.categories}
-          title={featuredStoresData.title.en}
+          title={featuredStoresData == {} ? [] : featuredStoresData.title['en']}
           onItemClick={handleStoreClick}
           selected={selectedId}
           setSelected={setSelectedId}
@@ -154,7 +152,7 @@ const Home = ({navigation}) => {
         <StoreCard data={selectedCategory ? selectedCategory.stores : []} />
         {/* <FeatHead
           data={popularStoresData.categories}
-          title={popularStoresData.title.en}
+          title={popularStoresData.title['en']}
         />
         <StoreCard
           data={popularStoresData.categories.map(storeData => storeData.stores)}
@@ -163,7 +161,7 @@ const Home = ({navigation}) => {
       <View style={homeStyle.thirdContainer}>
         <OffHead
           data={topOffersData.categories}
-          title={topOffersData.title.en}
+          title={topOffersData == {} ? [] : topOffersData.title['en']}
           onItemClick={handleOfferClick}
           selected={selectedOffId}
           setSelected={setSelectedOffId}
@@ -174,7 +172,7 @@ const Home = ({navigation}) => {
       <View style={homeStyle.fourthContainer}>
         <DealHead
           data={topDealsData.categories}
-          title={topDealsData.title.en}
+          title={topDealsData == {} ? [] : topDealsData.title['en']}
           onItemClick={handleDealClick}
           selected={selectedDealId}
           setSelected={setSelectedDealId}
@@ -183,11 +181,17 @@ const Home = ({navigation}) => {
         <DealCard data={selectedDeal ? selectedDeal.deals : []} />
       </View>
       <View style={homeStyle.fifthContainer}>
-        <Iconheader>{bestDealData.title.en}</Iconheader>
+        <Iconheader>
+          {bestDealData == {} ? [] : bestDealData.title['en']}
+        </Iconheader>
         <IconCard data={bestDealData.categories} />
-        <Iconheader>{popDealData.title.en}</Iconheader>
+        <Iconheader>
+          {popDealData == {} ? [] : popDealData.title['en']}
+        </Iconheader>
         <IconCard data={popDealData.categories} />
-        <Iconheader>{coupDealData.title.en}</Iconheader>
+        <Iconheader>
+          {coupDealData == {} ? [] : coupDealData.title['en']}
+        </Iconheader>
         <IconCard data={coupDealData.categories} />
       </View>
       <Footer />

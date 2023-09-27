@@ -7,7 +7,7 @@ const screenWidth = Dimensions.get('screen').width - 19;
 const Slider = ({data}) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const slideData = Object.values(data);
+  const slideData = data ? Object.values(data) : [];
 
   const renderDotIndicators = () => {
     return slideData.map((dot, index) => (
