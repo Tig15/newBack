@@ -39,7 +39,7 @@ const Tab = () => {
             right: 20,
             borderRadius: 20,
             elevation: 15,
-            height: 40,
+            height: 45,
           },
           tabBarShowLabel: false,
           headerShown: false,
