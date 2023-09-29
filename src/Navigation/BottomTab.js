@@ -6,11 +6,12 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {COLORS} from '../Assets/Theme/colors';
 import Home from '../Screens/HomeScreen/Home';
 import Store from '../Screens/AllStores/Store';
-import UserDashboard from '../Screens/UserDashboard';
+import UserDashboard from '../Screens/UserDashboard/User';
+import StackUserNavigator from './StackNavigator';
 
 const Tabs = createBottomTabNavigator();
 
-const Tab = () => {
+const BottomTab = () => {
   return (
     <NavigationContainer>
       <Tabs.Navigator
@@ -22,7 +23,7 @@ const Tab = () => {
               iconname = 'home';
             } else if (route.name === 'AllStores') {
               iconname = 'store';
-            } else if (route.name === 'User') {
+            } else if (route.name === 'UserBoard') {
               iconname = 'person-outline';
             }
 
@@ -46,12 +47,12 @@ const Tab = () => {
         })}>
         <Tabs.Screen component={Home} name="HomeScreen" />
         <Tabs.Screen component={Store} name="AllStores" />
-        <Tabs.Screen component={UserDashboard} name="User" />
+        <Tabs.Screen component={StackUserNavigator} name="UserBoard" />
       </Tabs.Navigator>
     </NavigationContainer>
   );
 };
 
-export default Tab;
+export default BottomTab;
 
 const styles = StyleSheet.create({});
