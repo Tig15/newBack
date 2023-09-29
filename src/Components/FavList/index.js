@@ -1,6 +1,6 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
-import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {COLORS} from '../../Assets/Theme/colors';
 import {favList} from './style';
 
@@ -10,7 +10,7 @@ const FavList = ({navigation}) => {
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={favList.goBack}>
-        <Entypo name="back" size={28} color={COLORS.lightDark} />
+        <MaterialIcons name="arrow-back" size={28} color={COLORS.lightDark} />
       </TouchableOpacity>
     </View>
   );
