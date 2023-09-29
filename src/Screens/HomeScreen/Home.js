@@ -27,6 +27,7 @@ const Home = ({navigation}) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedOffers, setSelectedOffers] = useState(null);
   const [selectedDeal, setSelectedDeal] = useState(null);
+  // const [processedData, setProcessedData] = useState([]);
 
   const dispatch = useDispatch();
   const {data, loading, errors} = useSelector(store => store.catReducer);
@@ -37,7 +38,8 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     if (!loading && data) {
-      console.log('Loaded Data', data);
+      console.log('lodaded data', data);
+      // setProcessedData(processedData);
     }
   }, [loading, data]);
 
@@ -58,7 +60,6 @@ const Home = ({navigation}) => {
   console.log('Processed Data', processedData);
 
   const sliderData = processedData.length < 0 ? [] : processedData[1];
-  const slides = sliderData.slides;
 
   const featuredStoresData = processedData.length < 0 ? [] : processedData[2];
 
@@ -128,7 +129,7 @@ const Home = ({navigation}) => {
     setSelectedDeal(deal);
   };
 
-  const {t} = useTranslation();
+  // const {t} = useTranslation();
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -138,12 +139,16 @@ const Home = ({navigation}) => {
         <StatusBar backgroundColor={COLORS.lightDark} />
         <Header />
         <Search />
-        <Slider data={slides} />
+        <Slider data={sliderData ? sliderData.slides : []} />
       </View>
       <View style={homeStyle.secondContainer}>
         <FeatHead
-          data={featuredStoresData.categories}
-          title={featuredStoresData == {} ? [] : featuredStoresData.title['en']}
+          data={featuredStoresData ? featuredStoresData.categories : []}
+          title={
+            featuredStoresData && featuredStoresData.title
+              ? featuredStoresData.title['en']
+              : []
+          }
           onItemClick={handleStoreClick}
           selected={selectedId}
           setSelected={setSelectedId}
@@ -160,8 +165,12 @@ const Home = ({navigation}) => {
       </View>
       <View style={homeStyle.thirdContainer}>
         <OffHead
-          data={topOffersData.categories}
-          title={topOffersData == {} ? [] : topOffersData.title['en']}
+          data={topOffersData ? topOffersData.categories : []}
+          title={
+            topOffersData && topOffersData.title
+              ? topOffersData.title['en']
+              : []
+          }
           onItemClick={handleOfferClick}
           selected={selectedOffId}
           setSelected={setSelectedOffId}
@@ -171,8 +180,10 @@ const Home = ({navigation}) => {
       </View>
       <View style={homeStyle.fourthContainer}>
         <DealHead
-          data={topDealsData.categories}
-          title={topDealsData == {} ? [] : topDealsData.title['en']}
+          data={topDealsData ? topDealsData.categories : []}
+          title={
+            topDealsData && topDealsData.title ? topDealsData.title['en'] : []
+          }
           onItemClick={handleDealClick}
           selected={selectedDealId}
           setSelected={setSelectedDealId}
@@ -182,17 +193,17 @@ const Home = ({navigation}) => {
       </View>
       <View style={homeStyle.fifthContainer}>
         <Iconheader>
-          {bestDealData == {} ? [] : bestDealData.title['en']}
+          {bestDealData && bestDealData.title ? bestDealData.title['en'] : []}
         </Iconheader>
-        <IconCard data={bestDealData.categories} />
+        <IconCard data={bestDealData ? bestDealData.categories : []} />
         <Iconheader>
-          {popDealData == {} ? [] : popDealData.title['en']}
+          {popDealData && popDealData.title ? popDealData.title['en'] : []}
         </Iconheader>
-        <IconCard data={popDealData.categories} />
+        <IconCard data={popDealData ? popDealData.categories : []} />
         <Iconheader>
-          {coupDealData == {} ? [] : coupDealData.title['en']}
+          {coupDealData && coupDealData.title ? coupDealData.title['en'] : []}
         </Iconheader>
-        <IconCard data={coupDealData.categories} />
+        <IconCard data={coupDealData ? coupDealData.categories : []} />
       </View>
       <Footer />
     </ScrollView>
