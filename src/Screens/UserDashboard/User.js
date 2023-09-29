@@ -4,7 +4,7 @@ import {userStyle} from './style';
 import {ScrollView} from 'react-native-virtualized-view';
 import {COLORS} from '../../Assets/Theme/colors';
 import StyledText from '../../Components/Core/StyledText';
-import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 
 const UserDashboard = () => {
@@ -24,7 +24,7 @@ const UserDashboard = () => {
           <TouchableOpacity
             style={userStyle.dist}
             onPress={() => navigation.navigate('Fave')}>
-            <Entypo name="heart" size={24} color={COLORS.deus} />
+            <MaterialIcons name="favorite" size={24} color={COLORS.deus} />
             <Text style={{fontSize: 16, color: COLORS.dark, marginTop: 1}}>
               Favourite
             </Text>

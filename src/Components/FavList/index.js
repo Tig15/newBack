@@ -10,7 +10,7 @@ const FavList = ({navigation}) => {
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={favList.goBack}>
-        <Entypo name="arrow-long-left" size={24} color={COLORS.lightDark} />
+        <Entypo name="back" size={28} color={COLORS.lightDark} />
       </TouchableOpacity>
     </View>
   );

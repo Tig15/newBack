@@ -66,6 +66,7 @@ const Home = ({navigation}) => {
 
   processedData.forEach(section => {
     const blockName = section.blockName;
+    const type = section.category_type;
     const limit = section.limit;
 
     // Use the blockName to determine how to handle the section
@@ -79,14 +80,15 @@ const Home = ({navigation}) => {
       sectionData.topOffersData = section;
     } else if (blockName === 'procash/top-deals') {
       sectionData.topDealsData = section;
-    } else if (blockName === 'procash/categories' && limit == '12') {
+    } else if (blockName === 'procash/categories' && type == 'DealCategory') {
       sectionData.bestDealData = section;
-    } else if (blockName === 'procash/categories' && limit == '8') {
+    } else if (blockName === 'procash/categories' && type == 'StoreCategory') {
       sectionData.popDealData = section;
-    } else if (blockName === 'procash/categories' && limit == 10) {
+    } else if (blockName === 'procash/categories' && type == 'CouponCategory') {
       sectionData.coupDealData = section;
     }
   });
+  console.log('Your Data', sectionData);
 
   const sliderData = sectionData.sliderData || {};
   const featuredStoresData = sectionData.featuredStoresData || {};

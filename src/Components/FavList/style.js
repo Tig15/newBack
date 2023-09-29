@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export const favList = StyleSheet.create({
   goBack: {
-    marginLeft: 10,
+    marginLeft: 15,
     marginTop: 10,
   },
 });

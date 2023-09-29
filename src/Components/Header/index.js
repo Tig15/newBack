@@ -1,6 +1,6 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect} from 'react';
-import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {headerStyle} from './styles';
 import {COLORS} from '../../Assets/Theme/colors';
 import {useTranslation} from 'react-i18next';
@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <View style={headerStyle.headContainer}>
       <TouchableOpacity>
-        <Entypo name="list" size={34} color={COLORS.light} />
+        <MaterialIcons name="view-headline" size={34} color={COLORS.light} />
       </TouchableOpacity>
       <View style={headerStyle.textContent}>
         <Text style={headerStyle.welcome}>{t('welcome_to')}</Text>

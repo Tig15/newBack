@@ -25,7 +25,7 @@ const Slider = ({data}) => {
   };
 
   return (
-    <View style={{width: SLIDER_WIDTH, marginTop: 5}}>
+    <View style={{width: SLIDER_WIDTH}}>
       <Carousel
         layout="default"
         layoutCardOffset={4}

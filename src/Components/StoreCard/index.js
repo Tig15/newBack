@@ -2,7 +2,7 @@ import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {cardStyle} from './style';
 import {COLORS} from '../../Assets/Theme/colors';
-import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const StoreCard = ({data}) => {
   const [selectFave, setSelectFave] = useState(false);
@@ -16,9 +16,9 @@ const StoreCard = ({data}) => {
       <TouchableOpacity style={cardStyle.cardContainer}>
         <TouchableOpacity style={cardStyle.favContent} onPress={handleFave}>
           {selectFave ? (
-            <Entypo name="heart" size={22} />
+            <MaterialIcons name="favorite" size={22} />
           ) : (
-            <Entypo name="heart-outlined" size={22} />
+            <MaterialIcons name="favorite-outline" size={22} />
           )}
         </TouchableOpacity>
         <View style={cardStyle.innerContainer}>
