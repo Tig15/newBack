@@ -19,12 +19,15 @@ import {requestCat} from '../../Redux/Actions/metaData';
 import OffHead from '../../Components/OffHead';
 import DealHead from '../../Components/DealHead';
 import LoadingSpinner from '../../Components/Spinner';
+import PopHead from '../../Components/PopHead';
 
 const Home = ({navigation}) => {
   const [selectedId, setSelectedId] = useState(null);
+  const [selectedTopId, setSelectedTopId] = useState(null);
   const [selectedOffId, setSelectedOffId] = useState(null);
   const [selectedDealId, setSelectedDealId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedTopCat, setSelectedTopCat] = useState(null);
   const [selectedOffers, setSelectedOffers] = useState(null);
   const [selectedDeal, setSelectedDeal] = useState(null);
   // const [processedData, setProcessedData] = useState([]);
@@ -59,21 +62,40 @@ const Home = ({navigation}) => {
 
   console.log('Processed Data', processedData);
 
-  const sliderData = processedData.length < 0 ? [] : processedData[1];
+  const sectionData = {};
 
-  const featuredStoresData = processedData.length < 0 ? [] : processedData[2];
+  processedData.forEach(section => {
+    const blockName = section.blockName;
+    const limit = section.limit;
 
-  // const popularStoresData = processedData[3];
+    // Use the blockName to determine how to handle the section
+    if (blockName === 'procash/slider') {
+      sectionData.sliderData = section;
+    } else if (blockName === 'procash/featured-stores') {
+      sectionData.featuredStoresData = section;
+    } else if (blockName === 'procash/top-stores' && limit == 10) {
+      sectionData.popularStoresData = section;
+    } else if (blockName === 'procash/top-offers') {
+      sectionData.topOffersData = section;
+    } else if (blockName === 'procash/top-deals') {
+      sectionData.topDealsData = section;
+    } else if (blockName === 'procash/categories' && limit == '12') {
+      sectionData.bestDealData = section;
+    } else if (blockName === 'procash/categories' && limit == '8') {
+      sectionData.popDealData = section;
+    } else if (blockName === 'procash/categories' && limit == 10) {
+      sectionData.coupDealData = section;
+    }
+  });
 
-  const topOffersData = processedData.length < 0 ? [] : processedData[5];
-
-  const topDealsData = processedData.length < 0 ? [] : processedData[6];
-
-  const bestDealData = processedData.length < 0 ? [] : processedData[11];
-
-  const popDealData = processedData.length < 0 ? [] : processedData[12];
-
-  const coupDealData = processedData.length < 0 ? [] : processedData[13];
+  const sliderData = sectionData.sliderData || {};
+  const featuredStoresData = sectionData.featuredStoresData || {};
+  const popularStoresData = sectionData.popularStoresData || {};
+  const topOffersData = sectionData.topOffersData || {};
+  const topDealsData = sectionData.topDealsData || {};
+  const bestDealData = sectionData.bestDealData || {};
+  const popDealData = sectionData.popDealData || {};
+  const coupDealData = sectionData.coupDealData || {};
 
   // Featured Stores
   const handleStoreClick = store => {
@@ -90,6 +112,23 @@ const Home = ({navigation}) => {
 
   const handleCategoryClick = category => {
     setSelectedCategory(category);
+  };
+
+  // Popular Stores
+  const handlePopStoreClick = store => {
+    if (
+      store.name === 'Handpicked' ||
+      store.name === 'Online Games' ||
+      store.name === 'Credit Card'
+    ) {
+      setSelectedTopId(store.id);
+    } else {
+      setSelectedTopId(null);
+    }
+  };
+
+  const handlePopCatClick = topCat => {
+    setSelectedTopCat(topCat);
   };
 
   // Top Offers
@@ -111,7 +150,6 @@ const Home = ({navigation}) => {
   };
 
   // Top Deals
-
   const handleDealClick = deal => {
     if (
       deal.name === 'Featured' ||
@@ -155,13 +193,19 @@ const Home = ({navigation}) => {
           onCategoryClick={handleCategoryClick}
         />
         <StoreCard data={selectedCategory ? selectedCategory.stores : []} />
-        {/* <FeatHead
-          data={popularStoresData.categories}
-          title={popularStoresData.title['en']}
+        <PopHead
+          data={popularStoresData ? popularStoresData.categories : []}
+          title={
+            popularStoresData && popularStoresData.title
+              ? popularStoresData.title['en']
+              : []
+          }
+          onItemClick={handlePopStoreClick}
+          selected={selectedTopId}
+          setSelected={setSelectedTopId}
+          onCategoryClick={handlePopCatClick}
         />
-        <StoreCard
-          data={popularStoresData.categories.map(storeData => storeData.stores)}
-        /> */}
+        <StoreCard data={selectedTopCat ? selectedTopCat.stores : []} />
       </View>
       <View style={homeStyle.thirdContainer}>
         <OffHead

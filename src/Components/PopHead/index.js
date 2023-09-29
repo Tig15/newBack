@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {headStyle} from '../HeadStyle/style';
 import StyledText from '../Core/StyledText';
 
-const FeatHead = ({data, title, onItemClick, selected, onCategoryClick}) => {
+const PopHead = ({data, title, onItemClick, selected, onCategoryClick}) => {
   const renderHeaders = ({item}) => {
     const handleItem = () => {
       onItemClick(item);
@@ -40,4 +40,4 @@ const FeatHead = ({data, title, onItemClick, selected, onCategoryClick}) => {
   );
 };
 
-export default FeatHead;
+export default PopHead;
