@@ -41,20 +41,18 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     if (!loading && data) {
-      console.log('lodaded data', data);
+      console.log('Loaded data', data);
       // setProcessedData(processedData);
     }
   }, [loading, data]);
 
-  const loadedData = data;
-
   const processedData = [];
 
-  for (const key in loadedData) {
+  for (const key in data) {
     if (key !== 'content') {
-      const data = loadedData[key];
-      for (const procashKey in data) {
-        const procashData = data[procashKey];
+      const loadedData = data[key];
+      for (const procashKey in loadedData) {
+        const procashData = loadedData[procashKey];
         processedData.push(procashData);
       }
     }
@@ -88,6 +86,7 @@ const Home = ({navigation}) => {
       sectionData.coupDealData = section;
     }
   });
+
   console.log('Your Data', sectionData);
 
   const sliderData = sectionData.sliderData || {};

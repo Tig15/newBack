@@ -34,5 +34,6 @@ export const homeStyle = StyleSheet.create({
   fifthContainer: {
     marginTop: 20,
     marginLeft: 18,
+    marginBottom: 10,
   },
 });

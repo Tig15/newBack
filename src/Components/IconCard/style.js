@@ -25,7 +25,7 @@ export const bestStyle = StyleSheet.create({
     height: 40,
   },
   textContent: {
-    width: 55,
+    width: 60,
     fontSize: 10,
     textAlign: 'center',
     fontWeight: 'bold',
