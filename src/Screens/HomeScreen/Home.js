@@ -1,4 +1,4 @@
-import {StatusBar, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StatusBar, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Search from '../../Components/Search';
 import Slider from '../../Components/Slider';
@@ -30,7 +30,6 @@ const Home = ({navigation}) => {
   const [selectedTopCat, setSelectedTopCat] = useState(null);
   const [selectedOffers, setSelectedOffers] = useState(null);
   const [selectedDeal, setSelectedDeal] = useState(null);
-  // const [processedData, setProcessedData] = useState([]);
 
   const dispatch = useDispatch();
   const {data, loading, errors} = useSelector(store => store.catReducer);
@@ -42,7 +41,6 @@ const Home = ({navigation}) => {
   useEffect(() => {
     if (!loading && data) {
       console.log('Loaded data', data);
-      // setProcessedData(processedData);
     }
   }, [loading, data]);
 
@@ -59,44 +57,6 @@ const Home = ({navigation}) => {
   }
 
   console.log('Processed Data', processedData);
-
-  const sectionData = {};
-
-  processedData.forEach(section => {
-    const blockName = section.blockName;
-    const type = section.category_type;
-    const limit = section.limit;
-
-    // Use the blockName to determine how to handle the section
-    if (blockName === 'procash/slider') {
-      sectionData.sliderData = section;
-    } else if (blockName === 'procash/featured-stores') {
-      sectionData.featuredStoresData = section;
-    } else if (blockName === 'procash/top-stores' && limit == 10) {
-      sectionData.popularStoresData = section;
-    } else if (blockName === 'procash/top-offers') {
-      sectionData.topOffersData = section;
-    } else if (blockName === 'procash/top-deals') {
-      sectionData.topDealsData = section;
-    } else if (blockName === 'procash/categories' && type == 'DealCategory') {
-      sectionData.bestDealData = section;
-    } else if (blockName === 'procash/categories' && type == 'StoreCategory') {
-      sectionData.popDealData = section;
-    } else if (blockName === 'procash/categories' && type == 'CouponCategory') {
-      sectionData.coupDealData = section;
-    }
-  });
-
-  console.log('Your Data', sectionData);
-
-  const sliderData = sectionData.sliderData || {};
-  const featuredStoresData = sectionData.featuredStoresData || {};
-  const popularStoresData = sectionData.popularStoresData || {};
-  const topOffersData = sectionData.topOffersData || {};
-  const topDealsData = sectionData.topDealsData || {};
-  const bestDealData = sectionData.bestDealData || {};
-  const popDealData = sectionData.popDealData || {};
-  const coupDealData = sectionData.coupDealData || {};
 
   // Featured Stores
   const handleStoreClick = store => {
@@ -174,82 +134,101 @@ const Home = ({navigation}) => {
   }
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={homeStyle.firstContainer}>
-        <StatusBar backgroundColor={COLORS.lightDark} />
-        <Header />
-        <Search />
-        <Slider data={sliderData ? sliderData.slides : []} />
-      </View>
-      <View style={homeStyle.secondContainer}>
-        <FeatHead
-          data={featuredStoresData ? featuredStoresData.categories : []}
-          title={
-            featuredStoresData && featuredStoresData.title
-              ? featuredStoresData.title['en']
-              : []
-          }
-          onItemClick={handleStoreClick}
-          selected={selectedId}
-          setSelected={setSelectedId}
-          onCategoryClick={handleCategoryClick}
-        />
-        <StoreCard data={selectedCategory ? selectedCategory.stores : []} />
-        <PopHead
-          data={popularStoresData ? popularStoresData.categories : []}
-          title={
-            popularStoresData && popularStoresData.title
-              ? popularStoresData.title['en']
-              : []
-          }
-          onItemClick={handlePopStoreClick}
-          selected={selectedTopId}
-          setSelected={setSelectedTopId}
-          onCategoryClick={handlePopCatClick}
-        />
-        <StoreCard data={selectedTopCat ? selectedTopCat.stores : []} />
-      </View>
-      <View style={homeStyle.thirdContainer}>
-        <OffHead
-          data={topOffersData ? topOffersData.categories : []}
-          title={
-            topOffersData && topOffersData.title
-              ? topOffersData.title['en']
-              : []
-          }
-          onItemClick={handleOfferClick}
-          selected={selectedOffId}
-          setSelected={setSelectedOffId}
-          onOfferCatClick={handleOfferCatClick}
-        />
-        <OfferCard data={selectedOffers ? selectedOffers.coupons : []} />
-      </View>
-      <View style={homeStyle.fourthContainer}>
-        <DealHead
-          data={topDealsData ? topDealsData.categories : []}
-          title={
-            topDealsData && topDealsData.title ? topDealsData.title['en'] : []
-          }
-          onItemClick={handleDealClick}
-          selected={selectedDealId}
-          setSelected={setSelectedDealId}
-          onDealCatClick={handleDealCatClick}
-        />
-        <DealCard data={selectedDeal ? selectedDeal.deals : []} />
-      </View>
-      <View style={homeStyle.fifthContainer}>
-        <Iconheader>
-          {bestDealData && bestDealData.title ? bestDealData.title['en'] : []}
-        </Iconheader>
-        <IconCard data={bestDealData ? bestDealData.categories : []} />
-        <Iconheader>
-          {popDealData && popDealData.title ? popDealData.title['en'] : []}
-        </Iconheader>
-        <IconCard data={popDealData ? popDealData.categories : []} />
-        <Iconheader>
-          {coupDealData && coupDealData.title ? coupDealData.title['en'] : []}
-        </Iconheader>
-        <IconCard data={coupDealData ? coupDealData.categories : []} />
-      </View>
+      {processedData.map((section, index) => {
+        const blockName = section.blockName;
+        const block = section.blockId;
+        switch (blockName) {
+          case 'procash/slider':
+            return (
+              <View style={homeStyle.firstContainer}>
+                <StatusBar backgroundColor={COLORS.lightDark} />
+                <Header />
+                <Search />
+                <Slider
+                  key={index}
+                  data={section.slides ? section.slides : []}
+                />
+              </View>
+            );
+
+          case 'procash/featured-stores':
+            return (
+              <View style={homeStyle.secondContainer}>
+                <FeatHead
+                  data={section ? section.categories : []}
+                  title={section && section.title ? section.title['en'] : []}
+                  onItemClick={handleStoreClick}
+                  selected={selectedId}
+                  setSelected={setSelectedId}
+                  onCategoryClick={handleCategoryClick}
+                />
+                <StoreCard
+                  data={selectedCategory ? selectedCategory.stores : []}
+                />
+              </View>
+            );
+
+          case 'procash/top-stores':
+            return (
+              <View style={homeStyle.secondContainer}>
+                <PopHead
+                  data={section ? section.categories : []}
+                  title={section && section.title ? section.title['en'] : []}
+                  onItemClick={handlePopStoreClick}
+                  selected={selectedTopId}
+                  setSelected={setSelectedTopId}
+                  onCategoryClick={handlePopCatClick}
+                />
+                <StoreCard data={selectedTopCat ? selectedTopCat.stores : []} />
+              </View>
+            );
+
+          case 'procash/top-offers':
+            return (
+              <View style={homeStyle.thirdContainer}>
+                <OffHead
+                  data={section ? section.categories : []}
+                  title={section && section.title ? section.title['en'] : []}
+                  onItemClick={handleOfferClick}
+                  selected={selectedOffId}
+                  setSelected={setSelectedOffId}
+                  onOfferCatClick={handleOfferCatClick}
+                />
+                <OfferCard
+                  data={selectedOffers ? selectedOffers.coupons : []}
+                />
+              </View>
+            );
+
+          case 'procash/top-deals':
+            return (
+              <View style={homeStyle.fourthContainer}>
+                <DealHead
+                  data={section ? section.categories : []}
+                  title={section && section.title ? section.title['en'] : []}
+                  onItemClick={handleDealClick}
+                  selected={selectedDealId}
+                  setSelected={setSelectedDealId}
+                  onDealCatClick={handleDealCatClick}
+                />
+                <DealCard data={selectedDeal ? selectedDeal.deals : []} />
+              </View>
+            );
+
+          case 'procash/categories':
+            return (
+              <View style={homeStyle.fifthContainer}>
+                <Iconheader>
+                  {section && section.title ? section.title['en'] : []}
+                </Iconheader>
+                <IconCard data={section ? section.categories : []} />
+              </View>
+            );
+
+          default:
+            null;
+        }
+      })}
       <Footer />
     </ScrollView>
   );

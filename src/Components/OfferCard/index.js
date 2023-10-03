@@ -1,7 +1,7 @@
 import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {offerStyle} from './style';
-import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {COLORS} from '../../Assets/Theme/colors';
 
 const OfferCard = ({data}) => {
@@ -17,7 +17,7 @@ const OfferCard = ({data}) => {
           <Text style={offerStyle.backText}>{item.store.cashback_string}</Text>
         </View>
         <TouchableOpacity style={offerStyle.toNext}>
-          <Entypo name="chevron-thin-right" color={COLORS.light} size={12.5} />
+          <MaterialIcons name="chevron-right" color={COLORS.light} size={20} />
         </TouchableOpacity>
       </TouchableOpacity>
     );
