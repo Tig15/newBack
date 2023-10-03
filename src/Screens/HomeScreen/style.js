@@ -5,11 +5,17 @@ export const homeStyle = StyleSheet.create({
   firstContainer: {
     alignItems: 'center',
     width: '100%',
-    height: 305,
+    height: 120,
     backgroundColor: COLORS.lightDark,
+    // borderBottomLeftRadius: 20,
+    // borderBottomRightRadius: 20,
+    // elevation: 15,
+  },
+  firContainer: {
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     elevation: 15,
+    backgroundColor: COLORS.lightDark,
   },
   secondContainer: {
     alignItems: 'center',
@@ -34,6 +40,6 @@ export const homeStyle = StyleSheet.create({
   fifthContainer: {
     marginTop: 20,
     marginLeft: 18,
-    marginBottom: 10,
+    marginBottom: 5,
   },
 });
